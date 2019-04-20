@@ -1,0 +1,4 @@
+matplotlib
+cython
+kivy
+pillow

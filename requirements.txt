@@ -1,4 +1,4 @@
 matplotlib
-cython
+cython==0.28.2
 kivy
 pillow

@@ -1,5 +1,4 @@
-#!/home/zygis/kv/env/bin/python3
-
+#!/home/zygis/apdorojimas/env/bin/python3.6
 # -*- coding: utf-8 -*-
 import re
 import sys

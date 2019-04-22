@@ -1,0 +1,56 @@
+<FileChooser>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            font_size: 50
+            size_hint: 1, .2
+            text: 'pasirinkite failą'
+        FileChooserListView:
+            id: filechooser
+        BoxLayout:
+            size_hint: 1, .2
+            Button:
+                font_size: 50
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+
+<EffectChooserPopup>:
+    image_original: image_original
+    image_edited: image_edited
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: 1, .15
+            Button:
+                text: "Negatyvas"
+                on_release: root.set_effect("Negatyvas")
+            Button:
+                text: "Filtras"
+                on_release: root.set_effect("Filtras")
+        BoxLayout:
+            size_hint: 1, .15
+            Button:
+                text: "Suliejimas"
+                on_release: root.set_effect("Suliejimas")
+            Button:
+                text: "Kontrastas"
+                on_release: root.set_effect("Kontrastas")
+        BoxLayout:
+            Image:
+                id: image_original
+                allow_stretch: True
+            Image:
+                id: image_edited
+                allow_stretch: True
+        BoxLayout:
+            size_hint: 1, .15
+            Button:
+                text: "Išsaugoti failą"
+                on_release: root.save_to_current_location()
+            Button:
+                text: "Pasirinkti kitą failą"
+                on_release: root.dismiss()
+
+<EffectViewerPopup>:
+    BoxLayout:

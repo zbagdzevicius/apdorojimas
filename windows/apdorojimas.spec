@@ -1,13 +1,13 @@
 # -*- mode: python -*-
-
+from kivy.deps import sdl2, glew
 block_cipher = None
 
 
-a = Analysis(['../main.py'],
-             pathex=['/home/zygis/apdorojimas/windows'],
+a = Analysis(['..\\main.py'],
+             pathex=['C:\\Users\\zygis\\Downloads\\apdorojimas-master\\windows'],
              binaries=[],
              datas=[],
-             hiddenimports=[],
+             hiddenimports=['pillow'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
@@ -31,6 +31,7 @@ coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
                a.datas,
+               *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
                strip=False,
                upx=True,
                name='apdorojimas')

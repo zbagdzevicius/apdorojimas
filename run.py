@@ -7,6 +7,7 @@ class Filter:
     def __init__(self, image_path, default_size=(600, 600)):
         Filter.default_size = default_size
         self.image = self.get_image(image_path)
+        self.image_draft = None
 
     class Decorators:
         @classmethod

@@ -1,0 +1,1 @@
+python main.py -m inspector and Ctrl+E

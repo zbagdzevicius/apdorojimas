@@ -11,12 +11,12 @@ class Filter:
     class Decorators:
         @classmethod
         def show_image(self, func):
-            def resize_image(*args, **kwargs):
+            def show(*args, **kwargs):
                 image = func(*args, **kwargs)
                 image.show()
                 return image
 
-            return resize_image
+            return show
 
     def get_image(self, image_path):
         image = Image.open(image_path)
@@ -27,14 +27,31 @@ class Filter:
                 factor = Filter.default_size[0] / image.width
             image = image.resize((int(image.width * factor), int(image.height * factor)))
         return image
+    
+    # @Decorators.show_image
+    def effect_blue_light_filter(self, percents_of_blue_light = 50):
+        width = self.image.width
+        height = self.image.height
+        edited_image = Image.new("RGB", (width, height), "white")
+        for x in range(width):
+            for y in range(height):
+                # get each pixel rgb value
+                rgba = self.image.getpixel((x, y))
+                # invert rgb values
+                pixel_red, pixel_green, pixel_blue = rgba[0:3]
+                pixel_blue = int(pixel_blue * percents_of_blue_light / 100)
+                # put pixel into empty picture pixel place
+                edited_image.putpixel((x, y), (pixel_red, pixel_green, pixel_blue))
+        return edited_image
 
-    @Decorators.show_image
+
+    # @Decorators.show_image
     def effect_negative(self):
         width = self.image.width
         height = self.image.height
         edited_image = Image.new("RGB", (width, height), "white")
-        for x in range(1, width - 1):
-            for y in range(1, height - 1):
+        for x in range(width):
+            for y in range(height):
                 # get each pixel rgb value
                 rgba = self.image.getpixel((x, y))
                 # invert rgb values
@@ -45,7 +62,7 @@ class Filter:
                 edited_image.putpixel((x, y), (pixel_red, pixel_green, pixel_blue))
         return edited_image
 
-    @Decorators.show_image
+    # @Decorators.show_image
     def filter_median(self):
         width = self.image.width
         height = self.image.height
@@ -66,7 +83,7 @@ class Filter:
                 edited_image.putpixel((i, j), (members[4]))
         return edited_image
 
-    @Decorators.show_image
+    # @Decorators.show_image
     def filter_sobel(self):
         width = self.image.width
         height = self.image.height
@@ -145,14 +162,15 @@ class Filter:
                 edited_image.putpixel((x, y), (length, length, length))
         return edited_image
 
-# path = "img.png"
-# path = "noised.png"
-path = "image.jpg"
-filter = Filter(image_path=path)
-start = time()
-filter.effect_negative()
-# filter.filter_sobel()
-# filter.filter_median()
-end = time()
-time_elapsed = end - start
-print(time_elapsed)
+# # path = "img.png"
+# # path = "noised.png"
+# path = "image.jpg"
+# filter = Filter(image_path=path)
+# start = time()
+# # filter.effect_negative()
+# filter.effect_blue_light_filter()
+# # filter.filter_sobel()
+# # filter.filter_median()
+# end = time()
+# time_elapsed = end - start
+# print(time_elapsed)
